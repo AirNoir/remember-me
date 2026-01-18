@@ -2,19 +2,22 @@
   <nav
     :class="[
       'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-      isScrolled
-        ? 'bg-warm-sand shadow-md'
-        : 'bg-transparent'
+      isScrolled ? 'bg-warm-sand shadow-md' : 'bg-warm-sand shadow-md',
     ]"
   >
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16 md:h-20">
         <div class="flex-shrink-0">
-          <h1 class="text-xl md:text-2xl font-bold text-deep-blue-grey">
+          <!-- <h1 class="text-xl md:text-2xl font-bold text-deep-blue-grey">
             Remember Me
-          </h1>
+          </h1> -->
+          <img
+            src="@/assets/images/logo.png"
+            alt="Remember Me"
+            class="w-[120px] h-[120px] md:w-[200px] md:h-[200px]"
+          />
         </div>
-        <div class="hidden md:flex space-x-8">
+        <div class="hidden md:flex space-x-8 text-xl">
           <a
             href="#services"
             class="text-deep-blue-grey hover:text-deep-blue-grey/80 transition-colors"
@@ -43,10 +46,7 @@
         </button>
       </div>
       <!-- Mobile Menu -->
-      <div
-        v-if="mobileMenuOpen"
-        class="md:hidden pb-4 space-y-2"
-      >
+      <div v-if="mobileMenuOpen" class="md:hidden pb-4 space-y-2">
         <a
           href="#services"
           @click="toggleMobileMenu"
@@ -74,26 +74,25 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
-import { Menu, X } from 'lucide-vue-next'
+import { ref, onMounted, onUnmounted } from "vue";
+import { Menu, X } from "lucide-vue-next";
 
-const isScrolled = ref(false)
-const mobileMenuOpen = ref(false)
+const isScrolled = ref(false);
+const mobileMenuOpen = ref(false);
 
 const handleScroll = () => {
-  isScrolled.value = window.scrollY > 50
-}
+  isScrolled.value = window.scrollY > 50;
+};
 
 const toggleMobileMenu = () => {
-  mobileMenuOpen.value = !mobileMenuOpen.value
-}
+  mobileMenuOpen.value = !mobileMenuOpen.value;
+};
 
 onMounted(() => {
-  window.addEventListener('scroll', handleScroll)
-})
+  window.addEventListener("scroll", handleScroll);
+});
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll)
-})
+  window.removeEventListener("scroll", handleScroll);
+});
 </script>
-

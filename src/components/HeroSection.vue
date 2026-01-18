@@ -6,8 +6,7 @@
     <div
       class="absolute inset-0 bg-cover bg-center bg-no-repeat"
       :style="{
-        backgroundImage:
-          'linear-gradient(rgba(74, 98, 116, 0.4), rgba(244, 241, 234, 0.3)), url(https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=1920&q=80)',
+        backgroundImage: `linear-gradient(rgba(74, 98, 116, 0.4), rgba(244, 241, 234, 0.3)), url(${backgroundImage})`,
       }"
     ></div>
 
@@ -40,6 +39,7 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
+import backgroundImage from "@/assets/images/photo01.jpeg";
 
 const isVisible = ref(false);
 
