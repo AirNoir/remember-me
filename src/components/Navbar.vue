@@ -8,34 +8,42 @@
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16 md:h-20">
         <div class="flex-shrink-0">
-          <!-- <h1 class="text-xl md:text-2xl font-bold text-deep-blue-grey">
-            Remember Me
-          </h1> -->
-          <img
-            src="@/assets/images/logo.png"
-            alt="Remember Me"
-            class="w-[120px] h-[120px] md:w-[200px] md:h-[200px]"
-          />
+          <RouterLink to="/">
+            <img
+              src="@/assets/images/logo.png"
+              alt="Remember Me"
+              class="w-[120px] h-[120px] md:w-[200px] md:h-[200px]"
+            />
+          </RouterLink>
         </div>
         <div class="hidden md:flex space-x-8 text-xl">
-          <a
-            href="#services"
+          <RouterLink
+            to="/#services"
             class="text-deep-blue-grey hover:text-deep-blue-grey/80 transition-colors"
+            @click="scrollToSection('services')"
           >
             服務項目
-          </a>
-          <a
-            href="#portfolio"
+          </RouterLink>
+          <RouterLink
+            to="/#portfolio"
             class="text-deep-blue-grey hover:text-deep-blue-grey/80 transition-colors"
+            @click="scrollToSection('portfolio')"
           >
             作品集
-          </a>
-          <a
-            href="#contact"
+          </RouterLink>
+          <RouterLink
+            to="/pricing"
             class="text-deep-blue-grey hover:text-deep-blue-grey/80 transition-colors"
           >
+            收費方式
+          </RouterLink>
+          <RouterLink
+            to="/#contact"
+            class="text-deep-blue-grey hover:text-deep-blue-grey/80 transition-colors"
+            @click="scrollToSection('contact')"
+          >
             聯絡我們
-          </a>
+          </RouterLink>
         </div>
         <button
           @click="toggleMobileMenu"
@@ -47,27 +55,34 @@
       </div>
       <!-- Mobile Menu -->
       <div v-if="mobileMenuOpen" class="md:hidden pb-4 space-y-2">
-        <a
-          href="#services"
-          @click="toggleMobileMenu"
+        <RouterLink
+          to="/#services"
+          @click="handleMobileNavClick('services')"
           class="block py-2 text-deep-blue-grey hover:text-deep-blue-grey/80 transition-colors"
         >
           服務項目
-        </a>
-        <a
-          href="#portfolio"
-          @click="toggleMobileMenu"
+        </RouterLink>
+        <RouterLink
+          to="/#portfolio"
+          @click="handleMobileNavClick('portfolio')"
           class="block py-2 text-deep-blue-grey hover:text-deep-blue-grey/80 transition-colors"
         >
           作品集
-        </a>
-        <a
-          href="#contact"
+        </RouterLink>
+        <RouterLink
+          to="/pricing"
           @click="toggleMobileMenu"
           class="block py-2 text-deep-blue-grey hover:text-deep-blue-grey/80 transition-colors"
         >
+          收費方式
+        </RouterLink>
+        <RouterLink
+          to="/#contact"
+          @click="handleMobileNavClick('contact')"
+          class="block py-2 text-deep-blue-grey hover:text-deep-blue-grey/80 transition-colors"
+        >
           聯絡我們
-        </a>
+        </RouterLink>
       </div>
     </div>
   </nav>
@@ -75,8 +90,11 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
+import { RouterLink, useRoute, useRouter } from "vue-router";
 import { Menu, X } from "lucide-vue-next";
 
+const route = useRoute();
+const router = useRouter();
 const isScrolled = ref(false);
 const mobileMenuOpen = ref(false);
 
@@ -86,6 +104,24 @@ const handleScroll = () => {
 
 const toggleMobileMenu = () => {
   mobileMenuOpen.value = !mobileMenuOpen.value;
+};
+
+const scrollToSection = (sectionId) => {
+  if (route.path === '/') {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+};
+
+const handleMobileNavClick = (sectionId) => {
+  toggleMobileMenu();
+  if (route.path === '/') {
+    setTimeout(() => {
+      scrollToSection(sectionId);
+    }, 100);
+  }
 };
 
 onMounted(() => {
